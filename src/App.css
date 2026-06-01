@@ -1,0 +1,357 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  color: #1f2937;
+}
+
+.contenedor {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+}
+
+.encabezado {
+  background: white;
+  padding: 24px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px #00000015;
+}
+
+.encabezado h1 {
+  margin: 0;
+  color:#7BAE9A; 
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px; 
+}
+
+.tarjeta {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px #00000012;
+}
+
+.tarjeta span {
+  display: block;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.tarjeta strong {
+  font-size: 24px;
+}
+
+.destacada {
+  background: #E4F1EB;
+  border: 1px solid #C8DED4; 
+}
+
+.panel {
+  background: white;
+  padding: 24px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px #00000012;
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  gap: 6px;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+.observaciones {
+  grid-column: 1 / -1;
+}
+
+button {
+  background: #7BAE9A;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background:#72b99d ;
+}
+
+.botonEliminar {
+  background: #dc2626;
+  padding: 8px 12px;
+}
+
+.botonEliminar:hover {
+  background: #b91c1c;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 13px;
+  background: white;
+}
+
+th {
+  background: #e8f0fe;
+  border: 1px solid #cbd5e1;
+  padding: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+td {
+  border: 1px solid #dbe3ee;
+  padding: 8px;
+  vertical-align: middle;
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tbody tr:hover {
+  background: #eaf3ff;
+}
+
+td:last-child {
+  text-align: center;
+}
+
+.panelTabla {
+  overflow-x: auto;
+}
+.selectorMes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.selectorMes input {
+  max-width: 180px;
+}
+.botonDesplegable {
+  width: 100%;
+  background: #eef6f2;
+  color: #1f2937;
+  border: 1px solid  #d6e7df;
+  box-shadow: 0 4px 10px #00000010;
+  text-align: left;
+  font-size: 20px;
+  padding: 16px 18px;
+}
+
+.botonDesplegable:hover {
+  background:#eef6f2 ;
+  color: #7BAE9A;
+}
+
+.margenArriba {
+  margin-top: 18px;
+}
+.botonesBalance {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.botonesBalance button {
+  background: #7BAE9A;
+  color: white;
+}
+
+.subPanel {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+.accionesTabla {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.botonEditar,
+.botonEliminar {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; 
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+/* Lapicito */
+.botonEditar {
+  background: #e5e7eb; /* gris clarito */
+  border-color: #d1d5db;
+}
+
+.botonEditar:hover {
+  background: #d1d5db;
+}
+
+/* Tachito */
+.botonEliminar {
+  background: #fce7f3; /* rosita clarito */
+  border-color: #f9a8d4;
+}
+
+.botonEliminar:hover {
+  background: #fbcfe8;
+}
+.ingresoMonto {
+  color: #059669; /* verde */
+  font-weight: bold;
+}
+
+.egresoMonto {
+  color: #dc2626; /* rojo */
+  font-weight: bold;
+}
+.botonImprimir {
+  background: #7BAE9A;
+  color: white;
+  margin-bottom: 12px;
+}
+
+ .encabezadoImpresion,
+.totalesImpresion,
+.firmasImpresion,
+.balanceAnualImpresion {
+  display: none;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .contenedor.imprimir-libro .encabezadoImpresion,
+  .contenedor.imprimir-libro .encabezadoImpresion *,
+  .contenedor.imprimir-libro .panelTabla,
+  .contenedor.imprimir-libro .panelTabla *,
+  .contenedor.imprimir-libro .totalesImpresion,
+  .contenedor.imprimir-libro .totalesImpresion *,
+  .contenedor.imprimir-libro .firmasImpresion,
+  .contenedor.imprimir-libro .firmasImpresion * {
+    visibility: visible !important;
+  }
+
+  .contenedor.imprimir-balance .balanceAnualImpresion,
+  .contenedor.imprimir-balance .balanceAnualImpresion * {
+    visibility: visible !important;
+  }
+
+  .contenedor.imprimir-balance .balanceAnualImpresion {
+    display: block !important;
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    right: 60px;
+    text-align: center;
+  }
+
+  .contenedor.imprimir-libro .encabezadoImpresion,
+  .contenedor.imprimir-libro .totalesImpresion,
+  .contenedor.imprimir-libro .firmasImpresion {
+    display: block !important;
+  }
+
+  .contenedor.imprimir-libro .panelTabla {
+    display: block !important;
+  }
+
+  .accionesTabla,
+  th:last-child,
+  td:last-child,
+  .botonImprimir,
+  .botonExcel,
+  .botonImprimirBalance {
+    display: none !important;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  th,
+  td {
+    border: 1px solid #000;
+  }
+
+  .firmasImpresion {
+    margin-top: 60px;
+    display: flex !important;
+    justify-content: space-around;
+    text-align: center;
+  }
+}
+.accionesBalanceAnual {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 22px;
+}
+
+.columnasCategorias {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.columnasCategorias .resumenCategorias {
+  background: #f7faf8;
+  border: 1px solid #dbe7df;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 0;
+}
+
+@media (max-width: 800px) {
+  .columnasCategorias {
+    grid-template-columns: 1fr;
+  }
+}
