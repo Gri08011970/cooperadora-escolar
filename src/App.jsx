@@ -296,10 +296,10 @@ function App() {
   return (
     <div
       className={`contenedor ${tipoImpresion === "libro"
-          ? "imprimir-libro"
-          : tipoImpresion === "balance"
-            ? "imprimir-balance"
-            : ""
+        ? "imprimir-libro"
+        : tipoImpresion === "balance"
+          ? "imprimir-balance"
+          : ""
         }`}
     >
       <header className="encabezado">
@@ -758,21 +758,23 @@ function App() {
 
             <p className="periodoVisible">{textoPeriodo}</p>
 
-            <button
-              type="button"
-              className="botonImprimir"
-              onClick={imprimirLibroCaja}
-            >
-              🖨️ Imprimir libro de caja
-            </button>
+            <div className="botonesMovimientos">
+              <button
+                type="button"
+                className="botonImprimir"
+                onClick={imprimirLibroCaja}
+              >
+                🖨️ Imprimir libro de caja
+              </button>
 
-            <button
-              type="button"
-              className="botonExcel"
-              onClick={exportarExcel}
-            >
-              📊 Descargar Excel
-            </button>
+              <button
+                type="button"
+                className="botonExcel"
+                onClick={exportarExcel}
+              >
+                📊 Descargar Excel
+              </button>
+            </div>
 
             {movimientos.length === 0 ? (
               <p>No hay movimientos cargados todavía.</p>
