@@ -21,14 +21,14 @@ body {
 
 .encabezado h1 {
   margin: 0;
-  color:#7BAE9A; 
+  color: #7BAE9A;
 }
 
 .tarjetas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 .tarjeta {
@@ -51,7 +51,7 @@ body {
 
 .destacada {
   background: #E4F1EB;
-  border: 1px solid #C8DED4; 
+  border: 1px solid #C8DED4;
 }
 
 .panel {
@@ -103,7 +103,7 @@ button {
 }
 
 button:hover {
-  background:#72b99d ;
+  background: #72b99d;
 }
 
 .botonEliminar {
@@ -152,6 +152,7 @@ td:last-child {
 .panelTabla {
   overflow-x: auto;
 }
+
 .selectorMes {
   display: flex;
   align-items: center;
@@ -162,11 +163,12 @@ td:last-child {
 .selectorMes input {
   max-width: 180px;
 }
+
 .botonDesplegable {
   width: 100%;
   background: #eef6f2;
   color: #1f2937;
-  border: 1px solid  #d6e7df;
+  border: 1px solid #d6e7df;
   box-shadow: 0 4px 10px #00000010;
   text-align: left;
   font-size: 20px;
@@ -174,13 +176,14 @@ td:last-child {
 }
 
 .botonDesplegable:hover {
-  background:#eef6f2 ;
+  background: #eef6f2;
   color: #7BAE9A;
 }
 
 .margenArriba {
   margin-top: 18px;
 }
+
 .botonesBalance {
   display: flex;
   gap: 12px;
@@ -199,6 +202,7 @@ td:last-child {
   border-radius: 16px;
   margin-bottom: 16px;
 }
+
 .accionesTabla {
   display: flex;
   justify-content: center;
@@ -214,14 +218,15 @@ td:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px; 
+  font-size: 12px;
   border: 1px solid transparent;
   cursor: pointer;
 }
 
 /* Lapicito */
 .botonEditar {
-  background: #e5e7eb; /* gris clarito */
+  background: #e5e7eb;
+  /* gris clarito */
   border-color: #d1d5db;
 }
 
@@ -231,29 +236,34 @@ td:last-child {
 
 /* Tachito */
 .botonEliminar {
-  background: #fce7f3; /* rosita clarito */
+  background: #fce7f3;
+  /* rosita clarito */
   border-color: #f9a8d4;
 }
 
 .botonEliminar:hover {
   background: #fbcfe8;
 }
+
 .ingresoMonto {
-  color: #059669; /* verde */
+  color: #059669;
+  /* verde */
   font-weight: bold;
 }
 
 .egresoMonto {
-  color: #dc2626; /* rojo */
+  color: #dc2626;
+  /* rojo */
   font-weight: bold;
 }
+
 .botonImprimir {
   background: #7BAE9A;
   color: white;
   margin-bottom: 12px;
 }
 
- .encabezadoImpresion,
+.encabezadoImpresion,
 .totalesImpresion,
 .firmasImpresion,
 .balanceAnualImpresion {
@@ -261,8 +271,15 @@ td:last-child {
 }
 
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
   body {
-    background: white;
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   body * {
@@ -285,54 +302,90 @@ td:last-child {
     visibility: visible !important;
   }
 
+  .contenedor.imprimir-libro .encabezadoImpresion,
+  .contenedor.imprimir-libro .panelTabla,
+  .contenedor.imprimir-libro .totalesImpresion,
+  .contenedor.imprimir-libro .firmasImpresion,
   .contenedor.imprimir-balance .balanceAnualImpresion {
     display: block !important;
-    position: absolute;
-    top: 40px;
-    left: 60px;
-    right: 60px;
-    text-align: center;
+    position: relative !important;
   }
 
-  .contenedor.imprimir-libro .encabezadoImpresion,
-  .contenedor.imprimir-libro .totalesImpresion,
-  .contenedor.imprimir-libro .firmasImpresion {
-    display: block !important;
+  .contenedor.imprimir-libro,
+  .contenedor.imprimir-balance {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
   }
 
-  .contenedor.imprimir-libro .panelTabla {
-    display: block !important;
-  }
-
-  .accionesTabla,
-  th:last-child,
-  td:last-child,
+  .encabezado,
+  .tarjetas,
+  .botonDesplegable,
+  .botonesBalance,
+  .filtrosMovimientos,
+  .botonesMovimientos,
+  .accionesBalanceAnual,
   .botonImprimir,
   .botonExcel,
-  .botonImprimirBalance {
+  .botonImprimirBalance,
+  .accionesTabla,
+  th:last-child,
+  td:last-child {
     display: none !important;
   }
 
+  .contenedor.imprimir-libro .panelTabla {
+    overflow: visible !important;
+  }
+
   table {
-    font-size: 11px;
+    width: 100% !important;
+    font-size: 9px !important;
+    border-collapse: collapse !important;
+    margin-top: 18px !important;
+    page-break-inside: auto;
   }
 
   th,
   td {
-    border: 1px solid #000;
+    border: 1px solid black !important;
+    padding: 4px !important;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  .encabezadoImpresion {
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  .totalesImpresion {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 11px;
   }
 
   .firmasImpresion {
-    margin-top: 60px;
+    margin-top: 45px;
     display: flex !important;
     justify-content: space-around;
     text-align: center;
+    page-break-inside: avoid;
   }
-}
-.accionesBalanceAnual {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0 22px;
+
+  .balanceAnualImpresion {
+    text-align: center;
+    font-size: 12px;
+    margin: 0 auto !important;
+    max-width: 650px;
+  }
+
+  .balanceAnualImpresion h1 {
+    font-size: 22px;
+    margin: 14px 0;
+  }
 }
 
 .columnasCategorias {
@@ -355,6 +408,7 @@ td:last-child {
     grid-template-columns: 1fr;
   }
 }
+
 .filtrosMovimientos {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -378,6 +432,7 @@ td:last-child {
 .filtrosMovimientos select {
   width: 100%;
 }
+
 .botonesMovimientos {
   display: flex;
   justify-content: center;

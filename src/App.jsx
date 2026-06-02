@@ -3,10 +3,8 @@ import "./App.css"
 import * as XLSX from "xlsx"
 
 function App() {
-  const [movimientos, setMovimientos] = useState(() => {
-    const guardados = localStorage.getItem("movimientosCooperadora")
-    return guardados ? JSON.parse(guardados) : []
-  })
+  const [movimientos, setMovimientos] = useState([])
+  
 
   const [mesBalance, setMesBalance] = useState("2026-05")
   const [anioBalance, setAnioBalance] = useState("2026")
@@ -33,8 +31,18 @@ function App() {
   })
 
   useEffect(() => {
-    localStorage.setItem("movimientosCooperadora", JSON.stringify(movimientos))
-  }, [movimientos])
+  obtenerMovimientos()
+}, [])
+
+async function obtenerMovimientos() {
+  try {
+    const respuesta = await fetch("http://localhost:5000/movimientos")
+    const datos = await respuesta.json()
+    setMovimientos(datos)
+  } catch (error) {
+    console.error("Error al obtener movimientos:", error)
+  }
+}
 
   const categoriasIngreso = [
     "Bufete",
@@ -175,54 +183,77 @@ function App() {
     return "Período: todos los movimientos"
   })()
 
-  function guardarMovimiento(e) {
-    e.preventDefault()
+  async function guardarMovimiento(e) {
+  e.preventDefault()
 
-    if (
-      !formulario.fecha ||
-      !formulario.tipo ||
-      !formulario.categoria ||
-      !formulario.monto
-    ) {
-      alert("Complete los campos obligatorios")
-      return
-    }
+  if (
+    !formulario.fecha ||
+    !formulario.tipo ||
+    !formulario.categoria ||
+    !formulario.monto
+  ) {
+    alert("Complete los campos obligatorios")
+    return
+  }
 
-    const movimientoGuardado = {
-      id: editandoId || Date.now(),
-      ...formulario,
-      monto: Number(formulario.monto),
-    }
+  const movimiento = {
+    ...formulario,
+    monto: Number(formulario.monto),
+  } 
 
+  try {
     if (editandoId) {
-      setMovimientos(
-        movimientos.map((m) =>
-          m.id === editandoId ? movimientoGuardado : m
-        )
-      )
+      await fetch(`http://localhost:5000/movimientos/${editandoId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(movimiento),
+      })
+
       setEditandoId(null)
     } else {
-      setMovimientos([movimientoGuardado, ...movimientos])
+      await fetch("http://localhost:5000/movimientos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(movimiento),
+      })
     }
+
+    await obtenerMovimientos()
+
     setFormulario({
       fecha: "",
       tipo: "Ingreso",
       categoria: "Bufete",
-      destino: "Caja General",
       formaPago: "Efectivo",
       concepto: "",
       monto: "",
-      observaciones: "",
       comprobante: "",
+      observaciones: "",
     })
+  } catch (error) {
+    console.error("Error al guardar movimiento:", error)
+    alert("No se pudo guardar el movimiento")
   }
+}
+  async function eliminarMovimiento(id) {
+  const confirmar = confirm("¿Eliminar este movimiento?")
+  if (!confirmar) return
 
-  function eliminarMovimiento(id) {
-    const confirmar = confirm("¿Eliminar este movimiento?")
-    if (!confirmar) return
+  try {
+    await fetch(`http://localhost:5000/movimientos/${id}`, {
+      method: "DELETE",
+    })
 
-    setMovimientos(movimientos.filter((m) => m.id !== id))
+    await obtenerMovimientos()
+  } catch (error) {
+    console.error("Error al eliminar movimiento:", error)
+    alert("No se pudo eliminar el movimiento")
   }
+}
 
   function editarMovimiento(movimiento) {
     setFormulario({
@@ -236,7 +267,7 @@ function App() {
       observaciones: movimiento.observaciones || "",
     })
 
-    setEditandoId(movimiento.id)
+    setEditandoId(movimiento._id)
 
     window.scrollTo({
       top: 0,
@@ -808,7 +839,7 @@ function App() {
 
                     <tbody>
                       {movimientosFiltrados.map((m) => (
-                        <tr key={m.id}>
+                        <tr key={m._id}>
                           <td>
                             {new Date(m.fecha + "T00:00:00").toLocaleDateString("es-AR")}
                           </td>
@@ -833,7 +864,7 @@ function App() {
                               <button
                                 type="button"
                                 className="botonEliminar"
-                                onClick={() => eliminarMovimiento(m.id)}
+                                onClick={() => eliminarMovimiento(m._id)} 
                                 title="Eliminar movimiento"
                               >
                                 🗑️
